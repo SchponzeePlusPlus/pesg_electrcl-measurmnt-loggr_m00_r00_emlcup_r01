@@ -11,6 +11,8 @@
 
 #include "Arduino.h"
 
+#include <EEPROM.h>
+
 #include "app_sys_main.h"
 
 #include "libdspmodgenproc.h"
@@ -30,6 +32,54 @@ uint8_t u8_incrmntValWRollovr(uint8_t u8_val)
 	else
 	{
 		result = 0;
+	}
+	return result;
+}
+
+/**
+ * @brief 
+ * 
+ * Function Imported here from reference project #2's WIP feature branch for considering non-volatile memory usage for calculations
+ * 
+ * @param u32_val 
+ * @return uint8_t 
+ */
+uint8_t u32_incrmntValWRollovr(uint32_t u32_val)
+{
+	uint8_t result = 0;
+	if (u32_val < 4294967295)
+	{
+		result = u32_val + 1;
+	}
+	else
+	{
+		result = 0;
+	}
+	return result;
+}
+
+/**
+ * @brief 
+ * 
+ * Function Imported here from reference project #2's WIP feature branch for considering non-volatile memory usage for calculations
+ * 
+ * @param u32_val 
+ * @return uint8_t 
+ */
+uint32_t u32_Add002ValsWOvrflwDetectn(uint32_t u32_valA, uint32_t u32_valB)
+{
+	uint32_t u32_largerMagnitudeParamVal = 0; //... WIP, selecting greater param value to help with roll over?
+	uint32_t result = 0;
+
+
+	//	https://www.reddit.com/r/cpp_questions/comments/4zym2x/how_to_check_for_overflowunderflow_in_c/
+	if (u32_valA < (4294967295 - u32_valB))
+	{
+		result = u32_valA + u32_valB;
+	}
+	else
+	{
+		result = u32_valB; // needs work
 	}
 	return result;
 }
@@ -147,6 +197,16 @@ int execSysCtrllrRunTimeMain()
 	//bool bo_DevcTypExEIssueCmdEn = false;
 	// Todo: formalise name
 	//bool bo_DevcTypEx82IssueCmdEn = false;
+
+	// The lines below this line here were imported from reference project #2's WIP feature branch for considering non-volatile memory usage for calculations
+	// ---------------------------------------
+	uint32_t u32_prjCtrllrAppsRunTmeTickRteCntr_ms = 0;
+
+	uint32_t u32_prjCtrllrAppsTickPerNvmSave_ms = 60000;
+
+	uint32_t u32_prjCtrllrAppsRunTmeTickRteCntrNvmSaveEventNext_ms = 0;
+	// ---------------------------------------
+	// The lines above this line here were imported from reference project #2's WIP feature branch for considering non-volatile memory usage for calculations
 
 	if(Serial)
 	{
@@ -365,7 +425,14 @@ int execSysCtrllrRunTimeMain()
 
 		bo_devcTypExKCtrllrInChkEnRawPrev = bo_devcTypExKCtrllrInChkEnRaw;
 
+		// The line below this comment here was imported from reference project #2's WIP feature branch for considering non-volatile memory usage for calculations
+		if (u32_prjCtrllrAppsRunTmeTickRteCntr_ms > u32_prjCtrllrAppsRunTmeTickRteCntrNvmSaveEventNext_ms)
+		u32_Add002ValsWOvrflwDetectn
+
 		delay(1);
+
+		// The line below this comment here was imported from reference project #2's WIP feature branch for considering non-volatile memory usage for calculations
+		u32_prjCtrllrAppsRunTmeTickRteCntr_ms = u32_incrmntValWRollovr(u32_prjCtrllrAppsRunTmeTickRteCntr_ms);
 	}
 
 	return 0;
