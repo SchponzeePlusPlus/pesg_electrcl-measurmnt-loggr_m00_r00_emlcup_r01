@@ -1,0 +1,36 @@
+ *  Executing task: platformio run --verbose --environment uno 
+
+Processing uno (platform: atmelavr; board: uno; framework: arduino)
+---------------------------------------------------------------------------------------------------------------------------
+CONFIGURATION: https://docs.platformio.org/page/boards/atmelavr/uno.html
+PLATFORM: Atmel AVR (5.1.0) > Arduino Uno
+HARDWARE: ATMEGA328P 16MHz, 2KB RAM, 31.50KB Flash
+DEBUG: Current (avr-stub) External (avr-stub, simavr)
+PACKAGES: 
+ - framework-arduino-avr @ 5.2.0 
+ - toolchain-atmelavr @ 1.70300.191015 (7.3.0)
+LDF: Library Dependency Finder -> https://bit.ly/configure-pio-ldf
+LDF Modes: Finder ~ chain, Compatibility ~ soft
+Found 5 compatible libraries
+Scanning dependencies...
+No dependencies
+Building in release mode
+MethodWrapper(["checkprogsize"], [".pio/build/uno/firmware.elf"])
+Advanced Memory Usage is available via "PlatformIO Home > Project Inspect"
+RAM:   [          ]   0.4% (used 9 bytes from 2048 bytes)
+Flash: [          ]   2.9% (used 924 bytes from 32256 bytes)
+.pio/build/uno/firmware.elf  :
+section                    size      addr
+.data                         0   8388864
+.text                       924         0
+.bss                          9   8388864
+.comment                     17         0
+.note.gnu.avr.deviceinfo     64         0
+.debug_aranges               64         0
+.debug_info                1866         0
+.debug_abbrev              1482         0
+.debug_line                 258         0
+.debug_str                  520         0
+Total                      5204
+=============================================== [SUCCESS] Took 0.45 seconds ===============================================
+ *  Terminal will be reused by tasks, press any key to close it.
